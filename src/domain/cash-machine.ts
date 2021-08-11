@@ -44,7 +44,7 @@ export class CashMachine {
   }
 
   /**
-   * No futuro poderia ter outras funções nessa classe de caixa eletrônico, tais como depositar, pagar boleto, extrato...
+   * No futuro poderia ter outras funções nessa classe de caixa eletrônico, tais como, depositar, pagar boleto, extrato...
    * comtemplando assim, mais operações fornecidas por um caixa eletrônico
    */
 }
