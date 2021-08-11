@@ -1,7 +1,7 @@
 import { ValidationError } from '../domain/errors/validation-error'
 import { IMoneyRespository } from './interfaces/imoney-repository'
-import { MoneyInMemoryRepository } from '../infra/repositories/money-in-memory-repository'
 import { Money } from '../domain/money'
+import { constants } from '../shared/constants'
 
 export class CashMachine {
   constructor (
@@ -12,12 +12,10 @@ export class CashMachine {
     const availableMoneys = await this.moneyRepository.getAvailableMoneys('DESC')
 
     const moneysToWithdraw = this.recursiveWithdraw(valueToWithdraw, availableMoneys)
-    const sum = moneysToWithdraw
-      .map((money) => money.value * money.quantity)
-      .reduce((prev, curr) => prev + curr)
+    const sumMoneys = this.sumMoneys(moneysToWithdraw)
 
-    if (sum < valueToWithdraw) {
-      throw new ValidationError('Não existe notas suficientes ou factíveis para atender seu pedido neste caixa!')
+    if (sumMoneys < valueToWithdraw) {
+      throw new ValidationError(constants.notExistsEnoughOrFeasibleMoneyInCashMachine)
     }
 
     availableMoneys.forEach((money, idx) => moneysToWithdraw[idx].quantity && money.remove(moneysToWithdraw[idx].quantity))
@@ -39,13 +37,14 @@ export class CashMachine {
     ]
   }
 
+  private sumMoneys (moneys: Money[]): number {
+    return moneys
+      .map((money) => money.value * money.quantity)
+      .reduce((prev, curr) => prev + curr)
+  }
+
   /**
    * No futuro poderia ter outras funções nessa classe de caixa eletrônico, tais como depositar, pagar boleto, extrato...
    * comtemplando assim, mais operações fornecidas por um caixa eletrônico
    */
 }
-
-const cashMachine = new CashMachine(new MoneyInMemoryRepository())
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-cashMachine.withdraw(190)
-  .then((moneys) => console.log(moneys))

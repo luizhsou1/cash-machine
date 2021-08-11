@@ -1,33 +1,67 @@
+import { isIntegerOrFail, isPositiveOrFail } from '../shared/validations-util'
 import { ValidationError } from './errors/validation-error'
+import { constants } from '../shared/constants'
 
+export enum MoneyValue {
+  TEN = 10,
+  TWENTY = 20,
+  FIFTY = 50,
+  ONE_HUNDRED = 100
+}
 export class Money {
+  /**
+   * @param value Valor da cédula (ex: [10, 20, 50, 100])
+   * @param _quantity Quantidade de cédulas a serem retiradas
+   * @throws ValidationError
+   */
   constructor (
-    readonly value: number,
+    readonly value: MoneyValue,
     private _quantity: number
-  ) {}
+  ) {
+    this.validateValueOrFail(value)
+    this.validateQuantityOrFail(_quantity)
+  }
 
+  /** Quantidade de cédulas a serem retiradas */
   get quantity (): number {
     return this._quantity
   }
 
+  /** Valores possível para as cédulas de dinheiro */
+  static get possibleValues (): number[] {
+    const possibleValues: number[] = Object.keys(MoneyValue)
+      .filter(key => typeof MoneyValue[key as any] === 'number')
+      .map(key => MoneyValue[key as any] as any)
+    return possibleValues
+  }
+
+  /**
+   * @param quantity Quantidade de cédulas a serem retiradas
+   * @throws ValidationError
+   */
   remove (quantity: number): void {
-    console.log(this.value, this.quantity, quantity, Number.isInteger(quantity))
+    this.validateQuantityOrFail(quantity)
 
-    // Validações a nível de erros de lógica no desenvolvimento, teoricamente não devem ocorrer
-    if (quantity <= 0) {
-      throw new ValidationError('Quantidade de cédulas a serem retiradas deve ser um valor positivo.')
-    }
-
-    if (!Number.isInteger(quantity)) {
-      throw new ValidationError('Quantidade de cédulas a serem retiradas deve ser um valor inteiro.')
-    }
-
-    const diffAmount = this._quantity - quantity
-    if (diffAmount < 0) {
-      throw new ValidationError('Quantidade de cédulas a serem retiradas excedeu o limite de cédulas disponíveis.')
+    const diffQuantity = this._quantity - quantity
+    if (diffQuantity < 0) {
+      throw new ValidationError(constants.moneyQuantityExceededLimitError)
     }
 
     this._quantity -= quantity
+  }
+
+  private validateValueOrFail (value: number): void {
+    isPositiveOrFail(value, constants.moneyValueIsNotPositiveError)
+    isIntegerOrFail(value, constants.moneyValueIsNotIntergerError)
+
+    if (!Money.possibleValues.includes(value)) {
+      throw new ValidationError(constants.moneyValueIsNotPossibleValuesError)
+    }
+  }
+
+  private validateQuantityOrFail (quantity: number): void {
+    isPositiveOrFail(quantity, constants.moneyQuantityIsNotPositiveError)
+    isIntegerOrFail(quantity, constants.moneyQuantityIsNotIntergerError)
   }
 }
 
