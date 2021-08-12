@@ -16,4 +16,5 @@ routes.setup(app)
 swagger.setup(app)
 app.use(errorHandling)
 
-export const initServer = (): http.Server => app.listen(port, () => console.log(`Running on ${url}`))
+export const initServer = (): http.Server => app
+  .listen(port, () => console.log(`Running on ${url}`))
