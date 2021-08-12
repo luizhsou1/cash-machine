@@ -1,8 +1,15 @@
 import { NextFunction, Request, Response } from 'express'
 
-const mapError = (err: Error): { error: string, message: string } => ({
+interface HttpErrorReturn {
+  error: string
+  message: string
+  stack: string | undefined
+}
+
+const mapError = (err: Error): HttpErrorReturn => ({
   error: err.name,
-  message: err.message
+  message: err.message,
+  stack: process.env.NODE_ENV === 'prod' ? err.stack : undefined
 })
 
 export const errorHandling = (err: any, req: Request, res: Response, next: NextFunction): Response => {
