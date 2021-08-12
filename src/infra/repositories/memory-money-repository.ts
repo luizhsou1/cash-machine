@@ -1,10 +1,10 @@
 import { Money, MoneyValue } from '../../domain/money'
 import { IMoneyRespository, OrderMoneyValue } from '../../domain/interfaces/imoney-repository'
 
-export class MemoryMoneyRepository implements IMoneyRespository {
+class MemoryMoneyRepository implements IMoneyRespository {
   private moneys: Money[]
   constructor () {
-    // Valores iniciais (Totalizando R$ 4.000,00)
+    // Saldo inicial (Totalizando R$ 4.000,00)
     this.moneys = [
       new Money(MoneyValue.ONE_HUNDRED, 10),
       new Money(MoneyValue.FIFTY, 20),
@@ -22,6 +22,17 @@ export class MemoryMoneyRepository implements IMoneyRespository {
     this.moneys = moneys
   }
 }
+
+// Obs1: Exporto um objeto e não a classe, pois quero que durante toda execução da aplicação trabalhe com o mesmo objeto de repositório, ou seja,
+// um singleton, apesar de não ter implementado do jeito clássico, com uma função 'getInstance' que verifica se já existe um objeto 'instance', que
+// nada mais é, que uma  referência estática de um objeto da própria classe, e quando invocada essa função, se não existir a 'instance', cria e retorna
+// ela, e se existir, apenas retorna ela, garantindo sempre um único objeto daquela classe, só que no Node.js não precisamos de toda essa parafernalha,
+// basta apenas exportar um objeto, e todos que importam esse módulo trabalharam com o mesmo objeto.
+// Com isso, garanto que sempre estarei manipulando a mesma lista de cédulas de dinheiro, para simular a escassez, ou seja.
+// ao longo da execução, pode acabar as notas.
+// Obs2: Obviamente, pensando num cenário real, por exemplo com um banco de dados, essas listas estariam sendo persisitida em algum disco,
+// e ficaria a cargo do banco controlar isso, essas atualizações na tabela/collection que representa as cédulas de dinheiro.
+export const memoryMoneyRepository = new MemoryMoneyRepository()
 
 /**
  * Implementação em memória do repositório de cédulas de dinheiro

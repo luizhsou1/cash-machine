@@ -28,7 +28,7 @@ export class CashMachine {
 
     for (const money of moneysToWithdraw) {
       const idx = availableMoneys.findIndex((m) => m.value === money.value)
-      availableMoneys[idx].remove(money.quantity)
+      availableMoneys[idx].remove(money.getQuantity())
     }
 
     await this.moneyRepository.save(availableMoneys)
@@ -46,7 +46,7 @@ export class CashMachine {
     if (valueToWithdraw <= 0 || !currentMoney) return []
 
     const idealQuantity = Math.floor(valueToWithdraw / currentMoney.value)
-    const effectiveQuantity = Math.min(idealQuantity, currentMoney.quantity)
+    const effectiveQuantity = Math.min(idealQuantity, currentMoney.getQuantity())
     const effectiveMoneyValue = (currentMoney.value * effectiveQuantity)
 
     return effectiveQuantity
@@ -58,8 +58,12 @@ export class CashMachine {
   }
 
   private sumMoneys (moneys: Money[]): number {
+    if (!moneys.length) {
+      return 0
+    }
+
     return moneys
-      .map((money) => money.value * money.quantity)
+      .map((money) => money.value * money.getQuantity())
       .reduce((prev, curr) => prev + curr)
   }
 

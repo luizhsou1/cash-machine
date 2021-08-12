@@ -16,15 +16,14 @@ export class Money {
    */
   constructor (
     readonly value: MoneyValue,
-    private _quantity: number
+    private quantity: number
   ) {
     this.validateValueOrFail(value)
-    this.validateQuantityOrFail(_quantity)
+    this.validateQuantityOrFail(quantity)
   }
 
-  /** Quantidade de cédulas a serem retiradas */
-  get quantity (): number {
-    return this._quantity
+  getQuantity (): number {
+    return this.quantity
   }
 
   /** Valores possível para as cédulas de dinheiro */
@@ -42,12 +41,12 @@ export class Money {
   remove (quantity: number): void {
     this.validateQuantityOrFail(quantity)
 
-    const diffQuantity = this._quantity - quantity
+    const diffQuantity = this.quantity - quantity
     if (diffQuantity < 0) {
       throw new ValidationError(constants.moneyQuantityExceededLimitError)
     }
 
-    this._quantity -= quantity
+    this.quantity -= quantity
   }
 
   private validateValueOrFail (value: number): void {
