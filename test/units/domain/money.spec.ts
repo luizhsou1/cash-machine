@@ -7,15 +7,15 @@ describe('Money', () => {
     test('Create object with valid values passed in constructor', () => {
       const money = new Money(10, 10)
       expect(money.value).toBe(10)
-      expect(money.quantity).toBe(10)
+      expect(money.getQuantity()).toBe(10)
     })
 
     test('Remove quantity of money', () => {
       const money = new Money(10, 10)
       money.remove(1)
-      expect(money.quantity).toBe(9)
+      expect(money.getQuantity()).toBe(9)
       money.remove(9)
-      expect(money.quantity).toBe(0)
+      expect(money.getQuantity()).toBe(0)
     })
 
     test('Get Possible values of Money', () => {
@@ -32,15 +32,13 @@ describe('Money', () => {
     })
 
     test('Not send a valid quantity when creating the object', () => {
-      expect(() => new Money(10, -10)).toThrowError(new ValidationError(constants.moneyQuantityIsNotPositiveError))
-      expect(() => new Money(10, 0)).toThrowError(new ValidationError(constants.moneyQuantityIsNotPositiveError))
+      expect(() => new Money(10, -10)).toThrowError(new ValidationError(constants.moneyQuantityInvalidError))
       expect(() => new Money(10, 10.5)).toThrowError(new ValidationError(constants.moneyQuantityIsNotIntergerError))
     })
 
     test('Not send a valid quantity when remove quantity of money', () => {
       const money = new Money(10, 10)
-      expect(() => money.remove(-10)).toThrowError(new ValidationError(constants.moneyQuantityIsNotPositiveError))
-      expect(() => money.remove(0)).toThrowError(new ValidationError(constants.moneyQuantityIsNotPositiveError))
+      expect(() => money.remove(-10)).toThrowError(new ValidationError(constants.moneyQuantityInvalidError))
       expect(() => money.remove(10.5)).toThrowError(new ValidationError(constants.moneyQuantityIsNotIntergerError))
       expect(() => money.remove(11)).toThrowError(new ValidationError(constants.moneyQuantityExceededLimitError))
     })
