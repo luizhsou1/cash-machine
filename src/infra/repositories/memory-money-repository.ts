@@ -1,15 +1,15 @@
 import { Money, MoneyValue } from '../../domain/money'
 import { IMoneyRespository, OrderMoneyValue } from '../../domain/interfaces/imoney-repository'
 
-export class MoneyInMemoryRepository implements IMoneyRespository {
+export class MemoryMoneyRepository implements IMoneyRespository {
   private moneys: Money[]
   constructor () {
     // Valores iniciais (Totalizando R$ 4.000,00)
     this.moneys = [
-      new Money(MoneyValue.TEN, 100),
-      new Money(MoneyValue.TWENTY, 50),
+      new Money(MoneyValue.ONE_HUNDRED, 10),
       new Money(MoneyValue.FIFTY, 20),
-      new Money(MoneyValue.ONE_HUNDRED, 10)
+      new Money(MoneyValue.TWENTY, 50),
+      new Money(MoneyValue.TEN, 100)
     ]
   }
 

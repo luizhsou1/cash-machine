@@ -3,8 +3,15 @@ import { Money } from '../money'
 export type OrderMoneyValue = 'ASC' | 'DESC'
 
 export interface IMoneyRespository {
+  /**
+   * Função responsável por obter do repositório, cédulas disponíveis com suas respectivas quantidades
+   */
   getAvailableMoneys: (orderValue: OrderMoneyValue) => Promise<Money[]>
 
+  /**
+   * Persiste no repositório valor atualizado de cédulas disponíveis
+   * @throws PersistenceError
+   */
   save: (moneys: Money[]) => Promise<void>
 }
 
