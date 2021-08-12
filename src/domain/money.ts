@@ -1,4 +1,4 @@
-import { isIntegerOrFail, isPositiveOrFail } from '../shared/validations-util'
+import { isIntegerOrFail, isMinOrFail, isPositiveOrFail } from '../shared/validations-util'
 import { ValidationError } from './errors/validation-error'
 import { constants } from '../shared/constants'
 
@@ -59,7 +59,7 @@ export class Money {
   }
 
   private validateQuantityOrFail (quantity: number): void {
-    isPositiveOrFail(quantity, constants.moneyQuantityIsNotPositiveError)
+    isMinOrFail(0, quantity, constants.moneyQuantityInvalidError)
     isIntegerOrFail(quantity, constants.moneyQuantityIsNotIntergerError)
   }
 }

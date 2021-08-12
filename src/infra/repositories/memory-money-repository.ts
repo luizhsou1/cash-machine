@@ -4,7 +4,7 @@ import { IMoneyRespository, OrderMoneyValue } from '../../domain/interfaces/imon
 class MemoryMoneyRepository implements IMoneyRespository {
   private moneys: Money[]
   constructor () {
-    // Saldo inicial (Totalizando R$ 4.000,00)
+    // Valor Total inicial em notas: R$ 4.000,00
     this.moneys = [
       new Money(MoneyValue.ONE_HUNDRED, 10),
       new Money(MoneyValue.FIFTY, 20),

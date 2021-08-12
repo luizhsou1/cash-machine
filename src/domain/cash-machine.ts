@@ -67,6 +67,19 @@ export class CashMachine {
       .reduce((prev, curr) => prev + curr)
   }
 
+  async configAvailablesMoneys (moneys: Money[]): Promise<void> {
+    this.validateIfValuesNotRepeatedOrFail(moneys)
+    await this.moneyRepository.update(moneys)
+    return await Promise.resolve()
+  }
+
+  private validateIfValuesNotRepeatedOrFail (moneys: Money[]): void {
+    const isUniqueMoneysValues = moneys.length === new Set(moneys.map((money) => money.value)).size
+    if (!isUniqueMoneysValues) {
+      throw new ValidationError(constants.availablesMoneysIsNotRepeated)
+    }
+  }
+
   /**
    * No futuro poderia ter outras funções nessa classe de caixa eletrônico, tais como, depositar, pagar boleto, extrato...
    * comtemplando assim, mais operações fornecidas por um caixa eletrônico
