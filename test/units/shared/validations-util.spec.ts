@@ -1,5 +1,5 @@
-import { ValidationError } from '../../src/domain/errors/validation-error'
-import { isIntegerOrFail, isPositiveOrFail } from '../../src/shared/validations-util'
+import { ValidationError } from '../../../src/domain/errors/validation-error'
+import { isIntegerOrFail, isPositiveOrFail } from '../../../src/shared/validations-util'
 
 describe('Validations Util', () => {
   const msgError = 'any_message_error'

@@ -1,6 +1,6 @@
-import { constants } from '../../src/shared/constants'
-import { ValidationError } from '../../src/domain/errors/validation-error'
-import { Money } from '../../src/domain/money'
+import { constants } from '../../../src/shared/constants'
+import { ValidationError } from '../../../src/domain/errors/validation-error'
+import { Money } from '../../../src/domain/money'
 
 describe('Money', () => {
   describe('Success', () => {
