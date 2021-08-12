@@ -31,7 +31,7 @@ export class CashMachine {
       availableMoneys[idx].remove(money.getQuantity())
     }
 
-    await this.moneyRepository.save(availableMoneys)
+    await this.moneyRepository.update(availableMoneys)
 
     return moneysToWithdraw
   }

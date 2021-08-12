@@ -9,10 +9,10 @@ export interface IMoneyRespository {
   getAvailableMoneys: (orderValue: OrderMoneyValue) => Promise<Money[]>
 
   /**
-   * Persiste no repositório valor atualizado de cédulas disponíveis
+   * Atualiza no repositório valor atualizado de cédulas disponíveis
    * @throws PersistenceError
    */
-  save: (moneys: Money[]) => Promise<void>
+  update: (moneys: Money[]) => Promise<void>
 }
 
 /**

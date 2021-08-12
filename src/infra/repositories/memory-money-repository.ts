@@ -18,8 +18,12 @@ class MemoryMoneyRepository implements IMoneyRespository {
       .sort((a: Money, b: Money) => orderValue === 'ASC' ? (a.value - b.value) : (b.value - a.value)))
   }
 
-  async save (moneys: Money[]): Promise<void> {
-    this.moneys = moneys
+  async update (moneys: Money[]): Promise<void> {
+    // Simula o que um banco de dados faria, identificaria cada cédula e atualizaria a quantidade disponível
+    for (const money of moneys) {
+      const idx = this.moneys.findIndex((m) => m.value === money.value)
+      this.moneys[idx] = money
+    }
   }
 }
 
