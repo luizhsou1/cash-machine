@@ -13,7 +13,7 @@ describe('Routes', () => {
   })
 
   afterAll(async () => {
-    await Promise.all([server.close()])
+    await server.close()
   })
 
   describe(`(POST) ${PATH_WITHDRAW}`, () => {
@@ -77,11 +77,10 @@ describe('Routes', () => {
           .post(PATH_WITHDRAW)
           .send({})
           .expect(422)
-          .expect(({ body }) => expect(body)
-            .toEqual({
-              error: 'ValidationError',
-              message: constants.moneyToWithdrawIsRequired
-            }))
+          .expect(({ body }) => {
+            expect(body.error).toEqual('ValidationError')
+            expect(body.message).toEqual(constants.moneyToWithdrawIsRequired)
+          })
       })
 
       // Saldo insuficiente, pois só existe R$ 10,00
@@ -90,11 +89,10 @@ describe('Routes', () => {
           .post(PATH_WITHDRAW)
           .send({ valueToWithdraw: 20 })
           .expect(422)
-          .expect(({ body }) => expect(body)
-            .toEqual({
-              error: 'ValidationError',
-              message: constants.notExistsEnoughOrFeasibleMoneyInCashMachine
-            }))
+          .expect(({ body }) => {
+            expect(body.error).toEqual('ValidationError')
+            expect(body.message).toEqual(constants.notExistsEnoughOrFeasibleMoneyInCashMachine)
+          })
       })
 
       // Não existe notas factíveis para atender o pedido, pois não tem notas de R$ 5,00 reais no caixa eletrônico
@@ -103,11 +101,10 @@ describe('Routes', () => {
           .post(PATH_WITHDRAW)
           .send({ valueToWithdraw: 5 })
           .expect(422)
-          .expect(({ body }) => expect(body)
-            .toEqual({
-              error: 'ValidationError',
-              message: constants.notExistsEnoughOrFeasibleMoneyInCashMachine
-            }))
+          .expect(({ body }) => {
+            expect(body.error).toEqual('ValidationError')
+            expect(body.message).toEqual(constants.notExistsEnoughOrFeasibleMoneyInCashMachine)
+          })
       })
     })
   })
@@ -135,11 +132,10 @@ describe('Routes', () => {
           .post(PATH_CONFIG_AVAILABLES_MONEYS)
           .send({})
           .expect(422)
-          .expect(({ body }) => expect(body)
-            .toEqual({
-              error: 'ValidationError',
-              message: constants.configAvailablesMoneysIsNotArray
-            }))
+          .expect(({ body }) => {
+            expect(body.error).toEqual('ValidationError')
+            expect(body.message).toEqual(constants.configAvailablesMoneysIsNotArray)
+          })
       })
     })
   })

@@ -9,7 +9,7 @@ interface HttpErrorReturn {
 const mapError = (err: Error): HttpErrorReturn => ({
   error: err.name,
   message: err.message,
-  stack: process.env.NODE_ENV === 'prod' ? err.stack : undefined
+  stack: process.env.NODE_ENV !== 'prod' ? err.stack : undefined
 })
 
 export const errorHandling = (err: any, req: Request, res: Response, next: NextFunction): Response => {
