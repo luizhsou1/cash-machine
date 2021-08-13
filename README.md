@@ -118,8 +118,8 @@ Explicação macro do algoritmo de retirada de notas **recursivo**, contido no a
 
 1. Verifica a condição de parada, sendo ela, se não tem mais valor a ser retirado ou se não tem mais notas disponíveis para retirar;
 2. Calcula a quantidade ideal de notas daquele tipo que está sendo iterado no momento;
-3. Pega o menor valor entre a quantidade ideal e quantidade disponível do que está sendo iterado no momento;
-  3.1 Exemplo 1: se a quantidade ideal é 10, e a quantidade disponível é 5, obtenho 5 daquela nota;
+3. Pega o menor valor entre a quantidade ideal e quantidade disponível do que está sendo iterado no momento;  
+  3.1 Exemplo 1: se a quantidade ideal é 10, e a quantidade disponível é 5, obtenho 5 daquela nota;  
   3.2 Exemplo 2: se a quantidade ideal é 5, e a quantidade disponível é 10, obtenho 5 também daquela nota;
 4. Calcula o valor efetivo que aquela interação pode contribuir;
 5. Se aquela iteração contribuir com alguma quantidade, retorna uma lista contendo um objeto Money e o resultado da chamada das proximas iterações recursivas. Se não contribuir, apenas chama a função recursiva novamente. Onde para cada chamada recursiva passo no primeiro argumento o (valor daquela interação - o valor efetivo que a iteração contribuiu) e no segundo argumento o restante da lista de notas disponíveis.
