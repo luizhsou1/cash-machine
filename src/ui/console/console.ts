@@ -93,6 +93,9 @@ export const initConsole = async (): Promise<void> => {
       case 2:
         await configAvailablesMoneys()
         break
+      case 3:
+        console.clear()
+        process.exit(0)
     }
   } while (option !== 3)
 }
