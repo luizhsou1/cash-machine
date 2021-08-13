@@ -22,7 +22,7 @@ export class CashMachine {
     const moneysToWithdraw = this.recursiveWithdraw(valueToWithdraw, availableMoneys)
     const sumMoneys = this.sumMoneys(moneysToWithdraw)
 
-    if (sumMoneys < valueToWithdraw) {
+    if (sumMoneys !== valueToWithdraw) {
       throw new ValidationError(constants.notExistsEnoughOrFeasibleMoneyInCashMachine)
     }
 

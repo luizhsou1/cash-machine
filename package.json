@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
-    "dev": "ts-node-dev --inspect -r dotenv/config --respawn --transpile-only index.ts",
     "start": "node -r dotenv/config ./dist/index.js",
+    "dev": "ts-node-dev --inspect -r dotenv/config --respawn --transpile-only index.ts",
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest --passWithNoTests --no-cache --runInBand",
