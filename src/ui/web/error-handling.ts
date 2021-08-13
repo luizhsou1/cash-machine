@@ -13,10 +13,6 @@ const mapError = (err: Error): HttpErrorReturn => ({
 })
 
 export const errorHandling = (err: any, req: Request, res: Response, next: NextFunction): Response => {
-  if (process.env.NODE_ENV === 'prod') {
-    delete err.stack
-  }
-
   if (err.name === 'ValidationError') {
     return res.status(422).json(mapError(err))
   }

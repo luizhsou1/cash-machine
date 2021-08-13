@@ -82,8 +82,9 @@ export const setup = (app: Application): void => {
   * /cash-machine/config-availables-moneys:
   *   post:
   *     tags: ['API']
-  *     summary: Congiure availables moneys
+  *     summary: Configure availables moneys
   *     requestBody:
+  *       required: true
   *       content:
   *         application/json:
   *           schema:
@@ -119,7 +120,7 @@ export const setup = (app: Application): void => {
       const moneys = req.body.map((elem: any) => new Money(elem.value, elem.quantity))
 
       await cashMachine.configAvailablesMoneys(moneys)
-      res.send('Cédulas de dinheiro disponíveis atualizadas com sucesso!')
+      res.send(constants.successConfigAvailablesMoneys)
     } catch (err) {
       next(err)
     }

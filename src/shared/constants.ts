@@ -10,5 +10,6 @@ export const constants = Object.freeze({
   moneyValueToWithdrawIsNotIntergerError: 'Valor a ser sacado deve ser um número positivo.',
   notExistsEnoughOrFeasibleMoneyInCashMachine: 'Não existe notas suficientes ou factíveis para atender seu pedido neste caixa!',
   availablesMoneysIsNotRepeated: 'Lista com valores de cédulas a serem atualizados não podem estar repetidos.',
-  configAvailablesMoneysIsNotArray: 'O body da request deve ser um array onde cada elemento é um objeto com essa estrutura { "value": any_value, "quantity": any_quantity }'
+  configAvailablesMoneysIsNotArray: 'O body da request deve ser um array onde cada elemento é um objeto com essa estrutura { "value": any_value, "quantity": any_quantity }',
+  successConfigAvailablesMoneys: 'Cédulas de dinheiro disponíveis atualizadas com sucesso!'
 })

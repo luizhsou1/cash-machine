@@ -1,4 +1,3 @@
-
 import * as http from 'http'
 import express from 'express'
 import * as routes from './routes'
@@ -16,5 +15,10 @@ routes.setup(app)
 swagger.setup(app)
 app.use(errorHandling)
 
-export const initServer = (): http.Server => app
+const initServer = (): http.Server => app
   .listen(port, () => console.log(`Running on ${url}`))
+
+export {
+  initServer,
+  app
+}
