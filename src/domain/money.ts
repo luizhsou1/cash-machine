@@ -50,8 +50,8 @@ export class Money {
   }
 
   private validateValueOrFail (value: number): void {
-    isPositiveOrFail(value, constants.moneyValueIsNotPositiveError)
     isIntegerOrFail(value, constants.moneyValueIsNotIntergerError)
+    isPositiveOrFail(value, constants.moneyValueIsNotPositiveError)
 
     if (!Money.possibleValues.includes(value)) {
       throw new ValidationError(constants.moneyValueIsNotPossibleValuesError)
@@ -59,8 +59,8 @@ export class Money {
   }
 
   private validateQuantityOrFail (quantity: number): void {
-    isMinOrFail(0, quantity, constants.moneyQuantityInvalidError)
     isIntegerOrFail(quantity, constants.moneyQuantityIsNotIntergerError)
+    isMinOrFail(0, quantity, constants.moneyQuantityInvalidError)
   }
 }
 
